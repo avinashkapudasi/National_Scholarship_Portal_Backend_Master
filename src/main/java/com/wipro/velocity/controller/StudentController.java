@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wipro.velocity.model.StudentApplication;
 import com.wipro.velocity.model.StudentModel;
 
 @RestController
@@ -20,30 +21,32 @@ import com.wipro.velocity.model.StudentModel;
 public class StudentController {
 
 	@Autowired
-	private StudentRepository sturep;
+	private StudentRepository stuRep;
+	
 
 	@PostMapping("/registerstudent")
 	public String regstu(@RequestBody StudentModel sr)
 	{
-		sturep.save(sr);
+		stuRep.save(sr);
 		return "student is registered successfully";
 
 	}
 
-	@GetMapping("/Students")
+	/*@GetMapping("/Students")
 	public List<StudentModel> getAllProducts(){
-		return sturep.findAll();
-	}
-	@GetMapping("/candidate/{email}")
+		return stuRep.findAll();
+	}*/
+	
+	/*@GetMapping("/candidate/{email}")
     public ResponseEntity<StudentModel> getStudentById(@PathVariable(value="email") String email)
     		throws ResourceNotFoundException
         {
-                   StudentModel studentModel =sturep.findByEmail(email).
+                   StudentModel studentModel =stuRep.findByEmail(email).
                    orElseThrow(() -> new ResourceNotFoundException
                     ("student Not Found for this Id: "+email));
                    
                    return ResponseEntity.ok().body(studentModel);     
-        }
+        }*/
 	
 	@PostMapping("/loginstudent")
 	public Boolean loginStudent(@Validated @RequestBody StudentModel studentModel) throws ResourceNotFoundException {
@@ -52,7 +55,7 @@ public class StudentController {
 		String email=studentModel.getEmail();
 		String password=studentModel.getPassword();
 
-		 StudentModel stu = sturep.findByEmail(email).orElseThrow(() ->
+		 StudentModel stu = stuRep.findByEmail(email).orElseThrow(() ->
 		new ResourceNotFoundException("Unknown Student"));
 		 
 		if(email.equals(stu.getEmail()) && password.equals(stu.getPassword()))
@@ -62,10 +65,18 @@ public class StudentController {
 		return isLogin;
 	}
 
-	@DeleteMapping("/deletestudent/{id}")
-	public String deletestudent(@PathVariable int id)
+	
+	
+	//Student Applications
+	
+	@Autowired
+	private StudentApplicationRepository stuAppRepo;
+	
+	@PostMapping("/applystudent")
+	public String stuApply(@RequestBody StudentApplication stuApp)
 	{
-		sturep.deleteById(id);
-		return "student is deleted successfully";
+		stuAppRepo.save(stuApp);
+		return "Application is submitted successfully";
 	}
+	
 }

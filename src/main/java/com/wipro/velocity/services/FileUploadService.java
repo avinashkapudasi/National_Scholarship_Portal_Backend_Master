@@ -42,7 +42,7 @@ public class FileUploadService {
         FileUploadModel loadFile = new FileUploadModel();
 
         if (gridFSFile != null && gridFSFile.getMetadata() != null) {
-            loadFile.setFilename( gridFSFile.getFilename() );
+            loadFile.setFileName( gridFSFile.getFilename() );
 
             loadFile.setFileType( gridFSFile.getMetadata().get("_contentType").toString() );
 

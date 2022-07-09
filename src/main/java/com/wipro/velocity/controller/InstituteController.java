@@ -2,6 +2,8 @@ package com.wipro.velocity.controller;
 import java.util.List;
 import com.wipro.velocity.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +25,38 @@ public class InstituteController {
     {
     	instrep.save(ir);
 		return "institute is registered successfully";
-    	
     }
     
+    
+    //institution-login
+    @PostMapping("/institution-login")
+	public Boolean loginInstitute(@Validated @RequestBody InstituteModel institute) throws ResourceNotFoundException {
+
+		Boolean isLogin=false;
+		String email=institute.getEmail();
+		String password=institute.getPassword();
+
+		 InstituteModel inst = instrep.findByEmail(email).orElseThrow(() ->
+		new ResourceNotFoundException("Unknown Student"));
+		 
+		if(email.equals(inst.getEmail()) && password.equals(inst.getPassword()))
+		{
+			isLogin=true;
+		}
+		return isLogin;
+	}
+   
+    //for ministry
+    
     @GetMapping("/Institutes")
-    public List<InstituteModel> getAllProducts(){
+    public List<InstituteModel> getAllInstitutions(){
         return instrep.findAll();
     }
     
-    @DeleteMapping("/delete-institute/{id}")
+    /*@DeleteMapping("/delete-institute/{id}")
     public String deleteInstitution(@PathVariable int id)
     {
     	instrep.deleteById(id);
 		return "institute is deleted successfully";
-    }
+    }*/
 }

@@ -15,6 +15,7 @@ public class StudentModel
 {
 	@Id
 	private String aadharNumber;
+	
 	private String stateofDomicile;
 	private String dist;  
 	private String name;

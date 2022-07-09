@@ -11,8 +11,5 @@ import com.wipro.velocity.model.StudentModel;
 public interface StudentRepository extends MongoRepository<StudentModel,Integer> {
 	
 	public Optional<StudentModel> findByEmail(String email);
-	
-	
-	
 
 }
