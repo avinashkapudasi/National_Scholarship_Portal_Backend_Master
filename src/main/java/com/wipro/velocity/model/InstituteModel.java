@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Document(collection="institute-applications")
+@Document(collection="instituteapplication")
 public class InstituteModel 
 {
 

@@ -21,6 +21,7 @@ import com.wipro.velocity.repository.StudentRepository;
 @CrossOrigin(origins = "*")
 public class MinisterController {
 	
+	
 	@Autowired
 	private StudentRepository stuRep;
 	

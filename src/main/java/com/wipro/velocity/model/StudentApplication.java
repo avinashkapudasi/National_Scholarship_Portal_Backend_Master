@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-@Document(collection = "studentApplications")
+@Document(collection = "studentapplication")
 public class StudentApplication {
 	
 	@Id
@@ -41,7 +41,7 @@ public class StudentApplication {
 	private String twelthPercentage;
 	private String admissionFee;
 	private String otherFee;
-	private String isDisables;
+	private String isDisable;
 	private String typeOfDisability;
 	private String disabilityPercenage;
 	private String maritalStatus;

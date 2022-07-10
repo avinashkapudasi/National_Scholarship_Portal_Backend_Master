@@ -20,7 +20,7 @@ public class InstituteController {
     @Autowired
     private InstituteRepository instrep;
     
-    @PostMapping("/institution-registration")
+    @PostMapping("/instituteregistration")
     public String reginst(@RequestBody InstituteModel ir)
     {
     	instrep.save(ir);
@@ -29,7 +29,7 @@ public class InstituteController {
     
     
     //institution-login
-    @PostMapping("/institution-login")
+    @PostMapping("/institutionlogin")
 	public Boolean loginInstitute(@Validated @RequestBody InstituteModel institute) throws ResourceNotFoundException {
 
 		Boolean isLogin=false;
