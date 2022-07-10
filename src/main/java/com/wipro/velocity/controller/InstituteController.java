@@ -18,7 +18,7 @@ public class InstituteController {
     @Autowired
     private InstituteRepository instrep;
     
-    @PostMapping("/institution-registration")
+    @PostMapping("/instituteregistration")
     public String reginst(@RequestBody InstituteModel ir)
     {
     	instrep.save(ir);
@@ -31,7 +31,7 @@ public class InstituteController {
         return instrep.findAll();
     }
     
-    @DeleteMapping("/delete-institute/{id}")
+    @DeleteMapping("/deleteinstitute/{id}")
     public String deleteInstitution(@PathVariable int id)
     {
     	instrep.deleteById(id);
