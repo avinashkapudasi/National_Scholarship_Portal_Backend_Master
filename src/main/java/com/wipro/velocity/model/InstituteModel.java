@@ -1,5 +1,7 @@
 package com.wipro.velocity.model;
 
+import java.io.File;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -20,6 +22,7 @@ public class InstituteModel
 	  private String instDistrict;
 	  @Id
 	  private String institutionCode;
+	  
 	  private String email;
 	  private String diseCode;
 	  private String location;
@@ -28,14 +31,13 @@ public class InstituteModel
 	  private String affilatedUniversityBoardName;
 	  private String yearFromWhichAdmissionStarted;
 	  private String password;
-	  private String confirmPassword;
 	  private String addressLine1;
 	  private String addressLine2;
 	  private String city;
 	  private String state;
 	  private String district;
 	  private String pincode;
-	  private String PrincipleName;
+	  private String principleName;
 	  private String telephone;
 	  
 }

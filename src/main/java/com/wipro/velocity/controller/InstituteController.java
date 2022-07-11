@@ -37,7 +37,7 @@ public class InstituteController {
 		String password=institute.getPassword();
 
 		 InstituteModel inst = instrep.findByEmail(email).orElseThrow(() ->
-		new ResourceNotFoundException("Unknown Student"));
+		new ResourceNotFoundException("Unknown Institute"));
 		 
 		if(email.equals(inst.getEmail()) && password.equals(inst.getPassword()))
 		{

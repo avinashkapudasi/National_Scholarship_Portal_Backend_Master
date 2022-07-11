@@ -1,6 +1,5 @@
 package com.wipro.velocity.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Document(collection = "studentapplication")
 public class StudentApplication {
 	
-	@Id
-	private String aadhar;
 	
+	private String aadhar;
+	private String phoneNumber;
 	private String email;
 	private String religion;
 	private String community;
@@ -34,14 +33,16 @@ public class StudentApplication {
 	private String previousPercentage;
 	private String tenthRollNo;
 	private String tenthBoard;
-	private String tenhYear;
+	private String tenthYear;
 	private String tenthPercentage;
 	private String twelthRollNo;
+	private String twelthBoard;
 	private String twelthYear;
 	private String twelthPercentage;
 	private String admissionFee;
+	private String tuitionFee;
 	private String otherFee;
-	private String isDisable;
+	private String isDisabled;
 	private String typeOfDisability;
 	private String disabilityPercenage;
 	private String maritalStatus;
