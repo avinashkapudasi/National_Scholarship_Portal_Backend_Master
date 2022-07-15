@@ -32,10 +32,7 @@ public class StudentController {
 
 	}
 
-	/*@GetMapping("/Students")
-	public List<StudentModel> getAllProducts(){
-		return stuRep.findAll();
-	}*/
+	
 	
 	/*@GetMapping("/candidate/{email}")
     public ResponseEntity<StudentModel> getStudentById(@PathVariable(value="email") String email)
@@ -47,6 +44,11 @@ public class StudentController {
                    
                    return ResponseEntity.ok().body(studentModel);     
         }*/
+	@GetMapping("/Studentapplication")
+	  public List<StudentApplication> getAllApplications(){
+	    return stuAppRepo.findAll();
+	  }
+	
 	
 	@PostMapping("/loginstudent")
 	public Boolean loginStudent(@Validated @RequestBody StudentModel studentModel) throws ResourceNotFoundException {

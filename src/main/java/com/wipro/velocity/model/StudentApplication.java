@@ -1,5 +1,6 @@
 package com.wipro.velocity.model;
 
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -13,9 +14,12 @@ import lombok.NoArgsConstructor;
 @Document(collection = "studentapplication")
 public class StudentApplication {
 	
-	
+	@Indexed(unique = true)
+	private String id;
 	private String aadhar;
 	private String phoneNumber;
+	private String name;
+	private String dob;
 	private String email;
 	private String religion;
 	private String community;
@@ -55,5 +59,7 @@ public class StudentApplication {
 	private String pincode;
 	private String gender;
 	private String scheme;
+	private Boolean status=false;
+	private Boolean finalStatus=false;
 
 }

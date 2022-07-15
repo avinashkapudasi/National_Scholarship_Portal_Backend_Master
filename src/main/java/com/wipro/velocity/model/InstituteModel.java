@@ -1,6 +1,6 @@
 package com.wipro.velocity.model;
 
-import java.io.File;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -39,5 +39,7 @@ public class InstituteModel
 	  private String pincode;
 	  private String principleName;
 	  private String telephone;
+	  private Boolean status=false;
+	  private Boolean finalStatus=false;
 	  
 }

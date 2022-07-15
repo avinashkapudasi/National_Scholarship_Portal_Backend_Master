@@ -1,6 +1,7 @@
 package com.wipro.velocity.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wipro.velocity.model.InstituteModel;
@@ -23,8 +26,10 @@ import com.wipro.velocity.repository.MinistryRepository;
 import com.wipro.velocity.repository.StudentApplicationRepository;
 import com.wipro.velocity.repository.StudentRepository;
 
+
+@RequestMapping("ministry")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MinisterController {
 
 
@@ -56,12 +61,100 @@ public class MinisterController {
 		}
 		return isLogin;
 	}
+	
+	
+	
+
+	@GetMapping("/Studentapplicationministry")
+	  public List<StudentApplication> getapprovedApplications(){
+	    return /*(List<StudentApplication>)*/stuAppRepo.findByStatus(true);
+	  }
+	
+	
+	@PutMapping("/finalapproval/{aadhar}")
+	public ResponseEntity<StudentApplication> updateFinalStatus(@PathVariable(value="aadhar") String aId,
+			@Validated @RequestBody StudentApplication s) throws ResourceNotFoundException
+	{
+		StudentApplication application=stuAppRepo.findByAadhar(aId).
+				orElseThrow(() -> new ResourceNotFoundException
+						("Student Not Found for this Id: " +aId));
 
 
-	@GetMapping("/Studentss")
-	public List<StudentModel> getAllStudents(){
-		return stuRep.findAll();
+		application.setFinalStatus(true);
+		
+		updateStudentStatus(aId, true);
+		
+
+		StudentApplication updatedFinalStatus=stuAppRepo.save(application);
+
+		return ResponseEntity.ok(updatedFinalStatus);
 	}
+	
+	public ResponseEntity<StudentModel> updateStudentStatus(@PathVariable(value="aadhar") String aId,
+			@Validated @RequestBody boolean b) throws ResourceNotFoundException
+	{
+		StudentModel application=stuRep.findByAadhar(aId).
+				orElseThrow(() -> new ResourceNotFoundException
+						("Student Not Found for this Id: " +aId));
+
+
+		application.setStatus(true);
+		
+		
+
+		StudentModel updatedFinalStatus=stuRep.save(application);
+
+		return ResponseEntity.ok(updatedFinalStatus);
+	}
+	
+	
+	
+	
+	@PutMapping("/institutefinalapproval/{instCode}")
+	public ResponseEntity<InstituteModel> updateFinalInstituteStatus(@PathVariable(value="instCode") String instCode,
+			@Validated @RequestBody InstituteModel s) throws ResourceNotFoundException
+	{
+		InstituteModel application=instRepo.findById(instCode).
+				orElseThrow(() -> new ResourceNotFoundException
+						("Student Not Found for this Id: " +instCode));
+
+
+		application.setFinalStatus(true);
+		
+		updateInstituteStatus(instCode, true);
+		
+
+		InstituteModel updatedFinalStatus=instRepo.save(application);
+
+		return ResponseEntity.ok(updatedFinalStatus);
+	}
+	
+	public ResponseEntity<InstituteModel> updateInstituteStatus(@PathVariable(value="instCode") String aId,
+			@Validated @RequestBody boolean b) throws ResourceNotFoundException
+	{
+		InstituteModel application=instRepo.findById(aId).
+				orElseThrow(() -> new ResourceNotFoundException
+						("Student Not Found for this Id: " +aId));
+
+
+		application.setStatus(true);
+		
+		
+
+		InstituteModel updatedFinalStatus=instRepo.save(application);
+
+		return ResponseEntity.ok(updatedFinalStatus);
+	}
+	
+	
+	
+	@GetMapping("/instituteapplicationministry")
+	  public List<InstituteModel> getApprovedInstitutions(){
+	    return /*(List<StudentApplication>)*/instRepo.findByStatus(true);
+	  }
+	
+	
+	
 	@GetMapping("/candidates/{email}")
 	public ResponseEntity<StudentModel> getStudentById(@PathVariable(value="email") String email)
 			throws ResourceNotFoundException
@@ -72,9 +165,15 @@ public class MinisterController {
 
 		return ResponseEntity.ok().body(studentModel);     
 	}
+	
+	
+	@GetMapping("/getstudents")
+	public List<StudentModel> getAllStudents(){
+		return stuRep.findAll();
+	}
 
 
-	@GetMapping("/institutess")
+	@GetMapping("/instituteapplications")
 	public List<InstituteModel> getAllInstitutions(){
 		return instRepo.findAll();
 	}
